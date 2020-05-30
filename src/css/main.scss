@@ -49,7 +49,6 @@ nav.nav-extended {
 	ul.tabs {
 		position: fixed;
 		top: 64px;
-		z-index: 997;
 	}
   @media #{$small-and-down} {
     ul.tabs {
@@ -68,12 +67,24 @@ nav.nav-extended {
 			display: unset;
 		}
 	}
-	
+	#issues-list {
+		height: calc( 100vh - 113px );
+		overflow-y: scroll;
+		margin-bottom: 0;
+	}
 	#issues-map {
 		height: calc( 100vh - 113px );
 		.spinner {
 			display: block;
 		}
+  }
+
+  #issue-detail {
+	overflow-x: hidden;
+	height: calc( 100vh - 113px );
+	box-shadow: -15px 0 15px rgba(0, 0, 0, 0.2);
+	position: relative;
+	z-index: 1000;
   }
   
 }
@@ -129,4 +140,28 @@ nav.nav-extended {
 	align-items: center;
 	margin-top: 0px;
 	margin-bottom: 0px;
+}
+
+.flex { display: flex;}
+.flex-shrink {
+	flex-shrink: 10;
+	width: 100%;
+	min-width: 0;
+}
+
+.overflow-scroll {
+	overflow-y: scroll;
+}
+
+.side-collapse {
+	width: 0;
+	transform: translateX(400px);
+	max-width: 100vw;
+	transition: width 1s, transform 1s;
+	&.open {
+		transform: translateX(0);
+		width: 400px;
+	}
+
+
 }

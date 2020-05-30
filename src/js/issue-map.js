@@ -50,6 +50,21 @@ export async function init() {
 	};
 
 	L.control.layers(baseLayers, {}).addTo(issuesmap);
+	var oldwidth = 0;
+	issuesmap.followResize = async function(recursive){
+		var width = $(issuesmap.getContainer()).width();
+		console.log("follow", recursive, oldwidth, width)
+		var again = false
+		if (width != oldwidth){
+			oldwidth = width;
+			issuesmap.invalidateSize();
+			again = true;
+		}
+
+		if (recursive !== true || again) {
+			setTimeout(() => {  issuesmap.followResize(true) }, 50);
+		}
+	}
 
 }
 var firstFocus = true;

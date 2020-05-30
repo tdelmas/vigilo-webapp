@@ -46,3 +46,13 @@
 .sidenav {
     z-index: 1001;
 }
+
+nav {
+    .sidenav-trigger {
+        z-index: unset;
+    }
+}
+
+.fixed-action-btn {
+    z-index: 1000;
+}

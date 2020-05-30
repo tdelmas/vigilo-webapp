@@ -70,9 +70,10 @@ export default class VigiloApp {
         M.Tabs.getInstance($("#issues .tabs")).options.onShow = function () { map.focus() }
         await map.init()
 
-        M.Modal.init($("#modal-issue"));
-        $(window).scroll(() => {
-            if (($(window.document.body).height() - $(window).height() - $(window).scrollTop()) < 10) {
+        //M.Modal.init($("#modal-issue"));
+
+        $("#issues-list").scroll(() => {
+            if (($("#issues-list").children().height() - $("#issues-list").height() - $("#issues-list").scrollTop()) < 10) {
                 list.displayIssues(30)
             }
         })

@@ -26,17 +26,32 @@ export async function displayIssues(count) {
 }
 
 export async function viewIssue(token) {
-	var modal = M.Modal.getInstance($("#modal-issue")[0]);
+	var side=$("#issue-detail")
 	var issues = await dataManager.getData();
 	var issue = issues.filter(item => item.token == token);
 	if( issue.length > 0) {
-		$("#modal-issue").empty().append(issueDetail(issue[0]));
-		M.Materialbox.init($("#modal-issue .materialboxed"));
+		side.empty().append(issueDetail.body(issue[0]));
+		$(".fixed-action-btn .btn-issue").remove();
+		$(".fixed-action-btn").children().hide();
+		$(".fixed-action-btn").append(issueDetail.buttons(issue[0]))
+		M.Materialbox.init(side.find(".materialboxed"));
 		window.history.replaceState({}, '', issue[0].permLink)
-		modal.open()
+		side.addClass("open")
+		side.scrollTop(0)
+		issuesmap.followResize()
 	} else {
 		console.warn("This token does not exist: ", token);
 	}
 }
 
+export async function closeIssue() {
+	var side=$("#issue-detail")
+	side.removeClass("open")
+	issuesmap.followResize()
+	$(".fixed-action-btn .btn-issue").remove();
+	$(".fixed-action-btn").children().show();
+	M.Materialbox.getInstance(side.find(".materialboxed")).close();
+}
+
 window.viewIssue = viewIssue
+window.closeIssue = closeIssue
